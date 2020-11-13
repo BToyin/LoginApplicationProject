@@ -1,6 +1,5 @@
 package com.sparta.toyin.authentication;
 
-import com.sparta.toyin.entities.User;
 import com.sparta.toyin.entities.UserEntity;
 import com.sparta.toyin.services.UserDAO;
 
@@ -9,51 +8,33 @@ import javax.security.enterprise.credential.Credential;
 import javax.security.enterprise.credential.UsernamePasswordCredential;
 import javax.security.enterprise.identitystore.CredentialValidationResult;
 import javax.security.enterprise.identitystore.IdentityStore;
-import java.util.ArrayList;
 import java.util.HashSet;
 
 public class InMemoryIdentityStore implements IdentityStore {
 
-//    private static ArrayList<String> adminUserNames;
-//    private static ArrayList<String> adminPasswords;
-//    private static ArrayList<String> userUserNames;
-//    private static ArrayList<String> userPasswords;
-//
+
+    @Inject
+    private UserDAO userDAO;
 
     @Override
     public CredentialValidationResult validate(Credential credential) {
         UsernamePasswordCredential usernamePasswordCredential = (UsernamePasswordCredential) credential;
 
-        if (usernamePasswordCredential.getCaller().equals("mgadhvi") && usernamePasswordCredential.getPasswordAsString().equals("password")) {
-            HashSet<String> roles = new HashSet<>();
-            roles.add("ADMIN");
-            return new CredentialValidationResult("Manish", roles);
-        } else if (usernamePasswordCredential.getCaller().equals("tajani") && usernamePasswordCredential.getPasswordAsString().equals("password")) {
-            HashSet<String> roles = new HashSet<>();
-            roles.add("USER");
-            return new CredentialValidationResult("Toyin", roles);
-        } else {
-            return CredentialValidationResult.NOT_VALIDATED_RESULT;
+        for (UserEntity admin : userDAO.findAdminsByRole()) {
+            if (usernamePasswordCredential.getCaller().equals(admin.getUserName()) && usernamePasswordCredential.getPasswordAsString().equals(admin.getPassword())) {
+                HashSet<String> roles = new HashSet<>();
+                roles.add("ADMIN");
+                return new CredentialValidationResult(admin.getFirstName(), roles);
+            }
         }
-//
-//        if (adminUserNames.contains(usernamePasswordCredential.getCaller()) && adminPasswords.contains(usernamePasswordCredential.getPasswordAsString())) {
-//            HashSet<String> roles = new HashSet<>();
-//            roles.add("ADMIN");
-//            return new CredentialValidationResult("Manish", roles);
-//        } else if (userUserNames.contains(usernamePasswordCredential.getCaller()) && userPasswords.contains(usernamePasswordCredential.getPasswordAsString())) {
-//            HashSet<String> roles = new HashSet<>();
-//            roles.add("USER");
-//            return new CredentialValidationResult("Toyin", roles);
-//        } else {
-//            return CredentialValidationResult.NOT_VALIDATED_RESULT;
-//        }
-//    }
+        for (UserEntity user : userDAO.findUsersByRole()) {
+            if (usernamePasswordCredential.getCaller().equals(user.getUserName()) && usernamePasswordCredential.getPasswordAsString().equals(user.getPassword())) {
+                HashSet<String> roles = new HashSet<>();
+                roles.add("USER");
+                return new CredentialValidationResult(user.getFirstName(), roles);
+            }
+        }
+        return CredentialValidationResult.NOT_VALIDATED_RESULT;
     }
-
-
-
-
-
-
-
 }
+

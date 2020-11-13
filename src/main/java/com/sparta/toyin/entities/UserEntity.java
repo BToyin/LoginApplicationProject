@@ -14,6 +14,7 @@ public class UserEntity {
     private String email;
     private String password;
     private String userName;
+    private String role;
 
     @Id
     @Column(name = "user_Id")
@@ -113,5 +114,15 @@ public class UserEntity {
     @Override
     public int hashCode() {
         return Objects.hash(userId, title, firstName, lastName, gender, email, password, userName);
+    }
+
+    @Basic
+    @Column(name = "role")
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

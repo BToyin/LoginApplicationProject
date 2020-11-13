@@ -6,34 +6,41 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
-
-    <body>
+    <h:head>
+        <link href="webjars/bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Registration Page</title>
+    </h:head>
+    <h:body>
     <ui:composition template="/WEB-INF/templates/template.xhtml">
         <ui:define name="content">
             <h:outputLabel value="You are logged in as #{request.userPrincipal.name}" />
             <h:form id="registrationForm">
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="Enter title"/>
-                    <h:inputText value="#{registerBean.userEntity.title}"/>
-                    <h:outputLabel value="Enter first name"/>
-                    <h:inputText value="#{registerBean.userEntity.firstName}"/>
-                    <h:outputLabel value="Enter Last name"/>
-                    <h:inputText value="#{registerBean.userEntity.lastName}"/>
-                    <h:outputLabel value="Enter Gender"/>
-                    <h:inputText value="#{registerBean.userEntity.gender}"/>
-                    <h:outputLabel value="Enter email"/>
-                    <h:inputText value="#{registerBean.userEntity.email}"/>
-                    <h:outputLabel value="Enter username"/>
-                    <h:inputText value="#{registerBean.userEntity.userName}"/>
-                    <h:outputLabel value="Enter password"/>
-                    <h:inputText value="#{registerBean.userEntity.password}"/>
                     <h:outputLabel value="Enter the user ID"/>
-                    <h:inputText value="#{registerBean.userEntity.userId}"/>
-                    <h:commandButton value="Register" action="#{registerBean.adduser}"/>
+                    <h:inputText value="#{registrationBean.userEntity.userId}"/>
+                    <h:outputLabel value="Enter title"/>
+                    <h:inputText value="#{registrationBean.userEntity.title}"/>
+                    <h:outputLabel value="Enter first name"/>
+                    <h:inputText value="#{registrationBean.userEntity.firstName}"/>
+                    <h:outputLabel value="Enter Last name"/>
+                    <h:inputText value="#{registrationBean.userEntity.lastName}"/>
+                    <h:outputLabel value="Enter Gender"/>
+                    <h:inputText value="#{registrationBean.userEntity.gender}"/>
+                    <h:outputLabel value="Enter email"/>
+                    <h:inputText value="#{registrationBean.userEntity.email}"/>
+                    <h:outputLabel value="Enter username"/>
+                    <h:inputText value="#{registrationBean.userEntity.userName}"/>
+                    <h:outputLabel value="Enter password"/>
+                    <h:inputText value="#{registrationBean.userEntity.password}"/>
+                    <h:outputLabel value="Enter the role"/>
+                    <h:inputText value="#{registrationBean.userEntity.role}"/>
+                    <h:commandButton value="Register" action="#{registrationBean.adduser(registrationBean.userEntity)}"/>
+                    <h:commandButton value="Logout" action="#{loginBean.logout}"/>
                 </h:panelGrid>
             </h:form>
         </ui:define>
     </ui:composition>
-    </body>
+    </h:body>
 </f:view>
 </html>
