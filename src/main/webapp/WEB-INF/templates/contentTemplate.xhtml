@@ -6,12 +6,6 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
-    <h:form id="welcomeForm">
-        <h:panelGrid columns="1">
-            <h:outputLabel value="Logged in as #{request.userPrincipal.name}" />
-            <h:commandButton value="Register a new User" action="admin?faces-redirect=true"/>
-            <h:commandButton value="Logout" action="#{loginBean.logout}"/>
-        </h:panelGrid>
-    </h:form>
+    <h:outputLabel value="This is the content template"/>
 </f:view>
 </html>

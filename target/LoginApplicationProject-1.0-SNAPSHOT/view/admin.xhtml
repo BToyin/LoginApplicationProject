@@ -6,6 +6,34 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
-    <h:outputLabel value="Hello, world"/>
+
+    <body>
+    <ui:composition template="/WEB-INF/templates/template.xhtml">
+        <ui:define name="content">
+            <h:outputLabel value="You are logged in as #{request.userPrincipal.name}" />
+            <h:form id="registrationForm">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Enter title"/>
+                    <h:inputText value="#{registerBean.userEntity.title}"/>
+                    <h:outputLabel value="Enter first name"/>
+                    <h:inputText value="#{registerBean.userEntity.firstName}"/>
+                    <h:outputLabel value="Enter Last name"/>
+                    <h:inputText value="#{registerBean.userEntity.lastName}"/>
+                    <h:outputLabel value="Enter Gender"/>
+                    <h:inputText value="#{registerBean.userEntity.gender}"/>
+                    <h:outputLabel value="Enter email"/>
+                    <h:inputText value="#{registerBean.userEntity.email}"/>
+                    <h:outputLabel value="Enter username"/>
+                    <h:inputText value="#{registerBean.userEntity.userName}"/>
+                    <h:outputLabel value="Enter password"/>
+                    <h:inputText value="#{registerBean.userEntity.password}"/>
+                    <h:outputLabel value="Enter the user ID"/>
+                    <h:inputText value="#{registerBean.userEntity.userId}"/>
+                    <h:commandButton value="Register" action="#{registerBean.adduser}"/>
+                </h:panelGrid>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+    </body>
 </f:view>
 </html>
