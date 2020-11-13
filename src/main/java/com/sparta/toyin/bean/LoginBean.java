@@ -1,6 +1,5 @@
 package com.sparta.toyin.bean;
 
-import com.sparta.toyin.entities.User;
 import com.sparta.toyin.entities.UserEntity;
 
 import javax.enterprise.context.RequestScoped;
