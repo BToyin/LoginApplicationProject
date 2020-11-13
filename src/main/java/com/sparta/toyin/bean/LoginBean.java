@@ -1,6 +1,7 @@
-package com.sparta.toyin.authentication;
+package com.sparta.toyin.bean;
 
 import com.sparta.toyin.entities.User;
+import com.sparta.toyin.entities.UserEntity;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -21,7 +22,7 @@ import java.io.IOException;
 public class LoginBean {
 
     @Inject
-    private User user;
+    private UserEntity userEntity;
 
     @Inject
     SecurityContext securityContext;
@@ -32,12 +33,12 @@ public class LoginBean {
     @Inject
     FacesContext facesContext;
 
-    public User getUser() {
-        return user;
+    public UserEntity getUser() {
+        return userEntity;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 
     public void submit() throws IOException {
@@ -58,7 +59,13 @@ public class LoginBean {
         return securityContext.authenticate(
                 (HttpServletRequest) externalContext.getRequest(),
                 (HttpServletResponse) externalContext.getResponse(),
-                AuthenticationParameters.withParams().credential(new UsernamePasswordCredential(user.getUserName(), user.getPassword()))
+                AuthenticationParameters.withParams().credential(new UsernamePasswordCredential(userEntity.getUserName(), userEntity.getPassword()))
         );
     }
+
+    public String logout() {
+        ((HttpServletRequest) externalContext.getRequest()).getSession(false).invalidate();
+        return "/login.xhtml?face-redirect=true";
+    }
+
 }

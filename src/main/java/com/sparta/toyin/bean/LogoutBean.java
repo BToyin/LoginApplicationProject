@@ -1,11 +1,12 @@
-package com.sparta.toyin.authentication;
+package com.sparta.toyin.bean;
 
-import com.sparta.toyin.entities.User;
-
-import javax.faces.context.ExternalContext;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
+@Named
+@RequestScoped
 public class LogoutBean {
 
     @Inject
