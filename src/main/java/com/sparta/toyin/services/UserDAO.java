@@ -24,17 +24,14 @@ public class UserDAO {
 
 
     public List<UserEntity> findAdminsByRole() {
-        return entityManager.createNativeQuery("SELECT * FROM user u WHERE role='ADMIN'").getResultList();
+        return entityManager.createNativeQuery("SELECT * FROM user u WHERE u.role='ADMIN'", UserEntity.class).getResultList();
     }
 
 
     public List<UserEntity> findUsersByRole() {
-        return entityManager.createNativeQuery("SELECT * FROM user u WHERE role='USER'").getResultList();
+        return entityManager.createNativeQuery("SELECT * FROM user u WHERE u.role='USER'",UserEntity.class).getResultList();
     }
 
-    public List<UserEntity> findUsersByRole(String role) {
-        return entityManager.createQuery("SELECT u FROM user u WHERE u.role LIKE :role").setParameter("role",role).getResultList();
-    }
 
 //    @Transactional
     public void addUser(UserEntity user) {
@@ -45,5 +42,12 @@ public class UserDAO {
     }
 
 
+    public UserEntity findUserByUserName(String username) {
+        try {
+            return entityManager.createQuery("SELECT u FROM UserEntity u WHERE u.userName LIKE :username", UserEntity.class).setParameter("username", username).getSingleResult();
+        } catch (Exception e) {
+            throw new NoResultException("credentials do not exist");
+        }
 
+    }
 }
