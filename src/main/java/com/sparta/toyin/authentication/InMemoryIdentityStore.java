@@ -24,14 +24,14 @@ public class InMemoryIdentityStore implements IdentityStore {
             if (usernamePasswordCredential.getCaller().equals(admin.getUserName()) && usernamePasswordCredential.getPasswordAsString().equals(admin.getPassword())) {
                 HashSet<String> roles = new HashSet<>();
                 roles.add("ADMIN");
-                return new CredentialValidationResult(admin.getFirstName(), roles);
+                return new CredentialValidationResult(admin.getFirstName() + " " + admin.getLastName(), roles);
             }
         }
         for (UserEntity user : userDAO.findUsersByRole()) {
             if (usernamePasswordCredential.getCaller().equals(user.getUserName()) && usernamePasswordCredential.getPasswordAsString().equals(user.getPassword())) {
                 HashSet<String> roles = new HashSet<>();
                 roles.add("USER");
-                return new CredentialValidationResult(user.getFirstName(), roles);
+                return new CredentialValidationResult(user.getFirstName() + " " + user.getLastName(), roles);
             }
         }
         return CredentialValidationResult.NOT_VALIDATED_RESULT;

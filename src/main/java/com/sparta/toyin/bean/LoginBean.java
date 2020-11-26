@@ -1,6 +1,7 @@
 package com.sparta.toyin.bean;
 
 import com.sparta.toyin.entities.UserEntity;
+import com.sparta.toyin.services.UserDAO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -24,6 +25,9 @@ public class LoginBean {
     private UserEntity userEntity;
 
     @Inject
+    private UserDAO userDAO;
+
+    @Inject
     SecurityContext securityContext;
 
     @Inject
@@ -40,8 +44,8 @@ public class LoginBean {
         this.userEntity = userEntity;
     }
 
-    public void submit() throws IOException {
-        switch (continueAuthentication()) {
+    public void submit(String username) throws IOException {
+        switch (continueAuthentication(username)) {
             case SEND_CONTINUE:
                 facesContext.responseComplete();
                 break;
@@ -54,11 +58,12 @@ public class LoginBean {
         }
     }
 
-    private AuthenticationStatus continueAuthentication() {
+    private AuthenticationStatus continueAuthentication(String username) {
+        UserEntity user = userDAO.findUserByUserName(username);
         return securityContext.authenticate(
                 (HttpServletRequest) externalContext.getRequest(),
                 (HttpServletResponse) externalContext.getResponse(),
-                AuthenticationParameters.withParams().credential(new UsernamePasswordCredential(userEntity.getUserName(), userEntity.getPassword()))
+                AuthenticationParameters.withParams().credential(new UsernamePasswordCredential(user.getUserName(), user.getPassword()))
         );
     }
 

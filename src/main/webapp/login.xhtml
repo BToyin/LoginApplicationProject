@@ -20,10 +20,10 @@
                         <h:messages id="messages" globalOnly="true"/>
                         <h:panelGrid columns="2">
                             <h:outputLabel value="Enter user name:"/>
-                            <h:inputText id="userName" value="#{loginBean.user.userName}"/>
+                            <h:inputText id="username" value="#{loginBean.user.userName}"/>
                             <h:outputLabel value="Enter Password:"/>
-                            <h:inputSecret value="#{loginBean.user.password}"/>
-                            <h:commandButton id="submit" value="Login" action="#{loginBean.submit}"/>
+                            <h:inputSecret id="password" value="#{loginBean.user.password}"/>
+                            <h:commandButton id="submit" value="Login" action="#{loginBean.submit(loginBean.user.userName)}"/>
                         </h:panelGrid>
                     </h:form>
                 </div>
