@@ -30,6 +30,7 @@ This project provided an opportunity to implement the knowledge I have gained on
 - Hibernate (ORM)
 - Beans
 - JSFs
+- MySQL
 
 ## Launch
 To launch this project you require IntelliJ (community or ultimate) and then need to clone this github repo and open this project from IntelliJ. You must then configure your databsse through the persistence.xml file (for ORM) by changing the username and password. Then configure the payara server if required. You should then be able to run this application.
